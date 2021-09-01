@@ -1,0 +1,27 @@
+/*{
+    "author": "Christian Y. (Omni Support Human)",
+    "type": "action",
+    "identifier": "com.omnigroup.support.ReviewNewProjects",
+    "version": "0.1",
+    "description": "",
+    "label": "Review New Projects",
+	"image": "arrow.right.doc.on.clipboard"
+}*/
+(() => {
+	const action = new PlugIn.Action((selection, sender) => {
+		// selection options: allObjects, database, databaseObjects, document, folders, projects, tags, tasks, window
+		
+		const cal = Calendar.current
+		const today = cal.startOfDay(new Date())
+		const now = new Date()
+
+		flattenedProjects.forEach(project => {
+			if (project.lastReviewDate.getTime() == today.getTime()) {
+				console.log(`New Project: "${project.name}" added to Review`)
+				project.nextReviewDate = today
+			}
+		})
+    });
+
+    return action;
+})();
